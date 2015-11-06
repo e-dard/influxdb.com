@@ -184,10 +184,3 @@ errors.join(views)
             .database('pages')
             .measurement('error_percent')
 ```
-
-
-
-
-
-
-
