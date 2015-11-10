@@ -375,6 +375,6 @@ Play around until you are comfortable updating, testing and running tasks in Kap
 
 ### What's next?
 
-Take a look at the [use cases](/docs/kapacitor/v0.1/introduction/use_cases.html) page for more examples on how to use Kapacitor.
-The use cases demonstrate some of the more rich features of Kapacitor.
+Take a look at the [use cases](/docs/kapacitor/v0.1/use_cases/index.html) page for more examples on how to use Kapacitor.
+These use cases demonstrate some of the more rich features of Kapacitor.
 
