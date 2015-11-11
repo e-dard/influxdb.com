@@ -60,11 +60,12 @@ Returns: [AlertNode](/docs/kapacitor/v0.1/tick/alert_node.html)
 ### Eval
 
 Create an eval node that will evaluate the given transformation function to each data point. 
-See the built-in function `expr` in order to write in-line custom transformation functions. 
+A list of expressions may be provided and will be evaluated in the order they are given 
+and results of previous expressions are made available to later expressions. 
 
 
 ```javascript
-node.eval(transform tick.Node)
+node.eval(expressions ...tick.Node)
 ```
 
 Returns: [EvalNode](/docs/kapacitor/v0.1/tick/eval_node.html)
@@ -131,23 +132,6 @@ node.join(other Node)
 Returns: [JoinNode](/docs/kapacitor/v0.1/tick/join_node.html)
 
 
-### Map
-
-Perform just the map step of a map-reduce operation. 
-A map step must always be followed by a reduce step. 
-See Apply for performing simple transformations. 
-See MapReduce for performing map-reduce in one command. 
-
-NOTE: Map can only be applied to batch edges. 
-
-
-```javascript
-node.map(f interface{})
-```
-
-Returns: [MapNode](/docs/kapacitor/v0.1/tick/map_node.html)
-
-
 ### MapReduce
 
 Perform a map-reduce operation on the data. 
@@ -155,7 +139,10 @@ The built-in functions under `influxql` provide the
 selection,aggregation, and transformation functions 
 from the InfluxQL language. 
 
-NOTE: MapReduce can only be applied to batch edges. 
+MapReduce may be applied to either a batch or a stream edge. 
+In the case of a batch each batch is passed to the mapper idependently. 
+In the case of a stream all incoming data points that have 
+the exact same time are combined into a batch and sent to the mapper. 
 
 
 ```javascript
@@ -165,18 +152,18 @@ node.mapReduce(mr MapReduceInfo)
 Returns: [ReduceNode](/docs/kapacitor/v0.1/tick/reduce_node.html)
 
 
-### Reduce
+### Sample
 
-Perform just the reduce step of a map-reduce operation. 
+Create a new node that samples the incoming points or batches. 
 
-NOTE: Reduce can only be applied to map edges. 
+One point will be emitted every count or duration specified. 
 
 
 ```javascript
-node.reduce(f interface{})
+node.sample(rate interface{})
 ```
 
-Returns: [ReduceNode](/docs/kapacitor/v0.1/tick/reduce_node.html)
+Returns: [SampleNode](/docs/kapacitor/v0.1/tick/sample_node.html)
 
 
 ### Union
